@@ -1,0 +1,138 @@
+<script setup>
+import { ref, computed, onMounted, watch, nextTick } from 'vue';
+import { Table, TableHead, TableHeader, TableRow, TableCell, TableBody } from '@/components/ui/table';
+import { Square, SquareX, MapPin } from 'lucide-vue-next';
+import bossesData from '@/data/bosses_data.json';
+import Filters from '@/components/Filters.vue';
+
+const bosses = ref(bossesData.bosses);
+const foundBosses = ref(new Set());
+
+// Extract unique regions and categories (preserving order)
+const allRegions = ref([...new Set(bosses.value.map(boss => boss.region))]);
+const allCategories = ref([...new Set(bosses.value.map(boss => boss.category))]);
+
+// Store selected filters
+const selectedRegions = ref([]);
+const selectedCategories = ref([]);
+const listContainer = ref(null);
+
+// Unique key for each boss
+const getBossKey = (boss) => `${boss.name}-${boss.region}-${boss.location}`;
+
+// Load from localStorage
+onMounted(() => {
+  const storedRegions = JSON.parse(localStorage.getItem('selectedRegions'));
+  const storedCategories = JSON.parse(localStorage.getItem('selectedCategories'));
+  const storedFound = JSON.parse(localStorage.getItem('foundBosses')) || [];
+
+  selectedRegions.value = storedRegions ?? [...allRegions.value]; // Default: all selected
+  selectedCategories.value = storedCategories ?? [...allCategories.value]; // Default: all selected
+  foundBosses.value = new Set(storedFound);
+
+  console.log("Loaded Found Bosses:", [...foundBosses.value]); // Debugging
+});
+
+// Save found bosses to localStorage
+const saveFoundBosses = () => {
+  localStorage.setItem('foundBosses', JSON.stringify([...foundBosses.value]));
+};
+
+// Save filters to localStorage
+watch([selectedRegions, selectedCategories], ([regions, categories]) => {
+  localStorage.setItem('selectedRegions', JSON.stringify(regions));
+  localStorage.setItem('selectedCategories', JSON.stringify(categories));
+});
+
+// Check if a boss is found
+const isBossFound = (boss) => foundBosses.value.has(getBossKey(boss));
+
+// Toggle boss completion status
+const toggleFound = (boss) => {
+  const key = getBossKey(boss);
+  if (foundBosses.value.has(key)) {
+    foundBosses.value.delete(key);
+  } else {
+    foundBosses.value.add(key);
+  }
+  saveFoundBosses();
+  console.log("Updated Found Bosses:", [...foundBosses.value]); // Debugging
+};
+
+// Preserve scroll position
+const previousScroll = ref(0);
+const beforeFilterChange = () => {
+  if (listContainer.value) {
+    previousScroll.value = listContainer.value.scrollTop;
+  }
+};
+const afterFilterChange = () => {
+  nextTick(() => {
+    if (listContainer.value) {
+      listContainer.value.scrollTop = previousScroll.value;
+    }
+  });
+};
+
+// Watch for filter changes
+watch([selectedRegions, selectedCategories], () => {
+  beforeFilterChange();
+  afterFilterChange();
+});
+
+// Filter bosses by selected filters
+const filteredBossesByRegion = computed(() => {
+  return allRegions.value.reduce((acc, region) => {
+    if (!selectedRegions.value.includes(region)) return acc;
+    const regionBosses = bosses.value.filter(boss =>
+      boss.region === region && selectedCategories.value.includes(boss.category)
+    );
+    if (regionBosses.length) acc[region] = regionBosses;
+    return acc;
+  }, {});
+});
+</script>
+
+<template>
+  <div>
+    <Filters :regions="allRegions" :categories="allCategories" v-model:selectedRegions="selectedRegions"
+      v-model:selectedCategories="selectedCategories" />
+
+    <div ref="listContainer" class="flex flex-grow flex-col gap-3 overflow-y-auto">
+      <div v-for="(bosses, region) in filteredBossesByRegion" :key="region"
+        class="bg-stone-800 text-stone-100 py-2 px-10 flex flex-grow flex-col mb-5 rounded-2xl">
+        <h2 class="text-xl font-semibold my-5">{{ region }}</h2>
+        <Table>
+          <TableHeader class="uppercase">
+            <TableRow class="hover:bg-stone-800 border-b-stone-700">
+              <TableHead class="text-stone-500 px-0 text-center">Done</TableHead>
+              <TableHead class="text-stone-500 text-center">Map</TableHead>
+              <TableHead class="text-stone-500">Name</TableHead>
+              <TableHead class="text-stone-500">Category</TableHead>
+              <TableHead class="text-stone-500">Location</TableHead>
+              <TableHead class="text-stone-500">Loot</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow v-for="boss in bosses" :key="getBossKey(boss)"
+              class="border-b border-b-stone-700 transition-colors hover:bg-stone-700/50">
+              <TableCell class="flex items-center justify-center py-7 px-0" @click="toggleFound(boss)">
+                <component :is="isBossFound(boss) ? SquareX : Square" :size="24" class="cursor-pointer" />
+              </TableCell>
+              <TableCell>
+                <a v-if="boss.boss_location" :href="boss.boss_location" target="_blank"
+                  class="text-stone-100 flex items-center justify-center">
+                  <MapPin :size="24" />
+                </a>
+              </TableCell>
+              <TableCell>{{ boss.name }}</TableCell>
+              <TableCell>{{ boss.category }}</TableCell>
+              <TableCell>{{ boss.location }}</TableCell>
+              <TableCell class="whitespace-pre-wrap">{{ boss.info }}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+  </div>
+</template>
