@@ -1,6 +1,6 @@
 {
-  "name": "elden-ring-boss-list",
-  "version": "0.0.0",
+  "name": "elden-ring-boss-tracker",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {

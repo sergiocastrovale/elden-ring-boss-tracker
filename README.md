@@ -1,6 +1,11 @@
 # Elden Ring Boss Tracker
 
-A Boss Tracker for Elden Ring (both for The Lands Between and Realm of Shadow maps) that leverages MapGenie's resources but removes tracking limits.
+This is a tracker for the bosses you have defeated in Elden Ring (including the Shadow of the Erdtree
+DLC). In total, this game features 272 + 62 bosses, and keeping track of all events is pretty much
+impossible. Hopefully this tool will help you navigate the game a bit better without spoiling away any
+progression.
+
+This tool leverages MapGenie's resources but removes tracking limits.
 
 ## Why did you build this?
 

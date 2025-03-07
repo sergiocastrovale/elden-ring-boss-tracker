@@ -1,6 +1,5 @@
 <script setup>
 import { ref, watch } from 'vue';
-import { Button } from '@/components/ui/button';
 import { SquareX, Square } from 'lucide-vue-next';
 
 const props = defineProps({
@@ -50,32 +49,59 @@ const deselectAllRegions = () => {
   activeRegions.value.clear();
   emit('update:selectedRegions', []);
 };
+
+const selectAllCategories = () => {
+  activeCategories.value = new Set(props.categories);
+  emit('update:selectedCategories', Array.from(activeCategories.value));
+};
+
+const deselectAllCategories = () => {
+  activeCategories.value.clear();
+  emit('update:selectedCategories', []);
+};
 </script>
 
 <template>
   <div class="mb-10">
     <div class="mb-5">
-      <h2 class="text-lg font-semibold text-stone-200 mb-3">Regions</h2>
-      <Button @click="selectAllRegions" variant="outline" class="mr-2 bg-stone-200">Select All</Button>
-      <Button @click="deselectAllRegions" variant="destructive">Deselect All</Button>
+      <div class="flex gap-3 items-center mb-3">
+        <h2 class="text-lg font-semibold text-stone-200">Regions</h2>
+
+        <div class="flex gap-1 items-end text-stone-400 text-xs mt-1">
+          <div @click="selectAllRegions" class="cursor-pointer hover:text-stone-200">Select All</div>
+          <div>/</div>
+          <div @click="deselectAllRegions" class="cursor-pointer hover:text-stone-200">Clear All</div>
+        </div>
+      </div>
 
       <div class="flex flex-wrap gap-2 mt-2">
-        <Button v-for="region in props.regions" :key="region" @click="toggleRegion(region)" variant="outline"
-          class="flex items-center gap-2 bg-stone-200">
-          <component :is="activeRegions.has(region) ? SquareX : Square" />
+        <div v-for="region in props.regions" :key="region" @click="toggleRegion(region)"
+          class="flex items-center gap-2 border py-1 px-2 rounded-md cursor-pointer"
+          :class="activeRegions.has(region) ? 'border-stone-300 text-stone-300' : 'border-stone-500 text-stone-500'">
+          <component :is="activeRegions.has(region) ? SquareX : Square" :size="18" />
           {{ region }}
-        </Button>
+        </div>
       </div>
     </div>
 
     <div>
-      <h2 class="text-lg font-semibold text-stone-200 mb-3">Categories</h2>
+      <div class="flex gap-3 items-center mb-3">
+        <h2 class="text-lg font-semibold text-stone-200">Categories</h2>
+
+        <div class="flex gap-1 items-end text-stone-400 text-xs mt-1">
+          <div @click="selectAllCategories" class="cursor-pointer hover:text-stone-200">Select All</div>
+          <div>/</div>
+          <div @click="deselectAllCategories" class="cursor-pointer hover:text-stone-200">Clear All</div>
+        </div>
+      </div>
+
       <div class="flex flex-wrap gap-2 mt-2">
-        <Button v-for="category in props.categories" :key="category" @click="toggleCategory(category)" variant="outline"
-          class="flex items-center gap-2 bg-stone-200">
-          <component :is="activeCategories.has(category) ? SquareX : Square" />
+        <div v-for="category in props.categories" :key="category" @click="toggleCategory(category)"
+          class="flex items-center gap-2 border py-1 px-2 rounded-md cursor-pointer"
+          :class="activeCategories.has(category) ? 'border-stone-300 text-stone-300' : 'border-stone-500 text-stone-500'">
+          <component :is="activeCategories.has(category) ? SquareX : Square" :size="18" />
           {{ category }}
-        </Button>
+        </div>
       </div>
     </div>
   </div>

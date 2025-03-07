@@ -6,6 +6,9 @@ import BossList from './components/BossList.vue';
 <template>
   <div class="container mx-auto">
     <Navigation />
-    <BossList />
+
+    <div class="flex gap-2">
+      <BossList />
+    </div>
   </div>
 </template>
