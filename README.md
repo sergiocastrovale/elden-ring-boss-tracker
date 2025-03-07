@@ -7,9 +7,19 @@ progression.
 
 This tool leverages MapGenie's resources but removes tracking limits.
 
+You can use it at <https://elden-ring-boss-tracker.vercel.app/>.
+
+![The tracker](1.png 'The tracker')
+
+_The tracker_
+
+![Mobile friendly!](2.png 'Mobile friendly!')
+
+_Mobile friendly!_
+
 ## Why did you build this?
 
-I was looking for an excuse to do a "dev speedrun" of sorts by building a very small app as quickly as possible. I built this in about four hours (parser included). As I was playing Elden Ring at the time, this seemed like a quick - but useful - project to work on.
+I was looking for an excuse to do a "dev speedrun" of sorts by building a very small app as quickly as possible. I built this in about six hours (parser included). As I was playing Elden Ring at the time, this seemed like a quick - but useful - project to work on.
 
 ## Aren't there better tools?
 

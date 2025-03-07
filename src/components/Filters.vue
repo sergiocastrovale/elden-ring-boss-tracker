@@ -1,24 +1,18 @@
 <script setup>
 import { ref, watch } from 'vue';
 import { SquareX, Square } from 'lucide-vue-next';
+import { useBossStore } from '@/stores/bossStore';
 
-const props = defineProps({
-  regions: Array,
-  categories: Array,
-  selectedRegions: Array,
-  selectedCategories: Array,
-});
+const bossStore = useBossStore();
 
-const emit = defineEmits(['update:selectedRegions', 'update:selectedCategories']);
+const activeRegions = ref(new Set(bossStore.selectedRegions));
+const activeCategories = ref(new Set(bossStore.selectedCategories));
 
-const activeRegions = ref(new Set(props.selectedRegions));
-const activeCategories = ref(new Set(props.selectedCategories));
-
-watch(() => props.selectedRegions, (newSelected) => {
+watch(() => bossStore.selectedRegions, (newSelected) => {
   activeRegions.value = new Set(newSelected);
 }, { immediate: true });
 
-watch(() => props.selectedCategories, (newSelected) => {
+watch(() => bossStore.selectedCategories, (newSelected) => {
   activeCategories.value = new Set(newSelected);
 }, { immediate: true });
 
@@ -28,7 +22,7 @@ const toggleRegion = (region) => {
   } else {
     activeRegions.value.add(region);
   }
-  emit('update:selectedRegions', Array.from(activeRegions.value));
+  bossStore.setSelectedRegions(Array.from(activeRegions.value));
 };
 
 const toggleCategory = (category) => {
@@ -37,32 +31,32 @@ const toggleCategory = (category) => {
   } else {
     activeCategories.value.add(category);
   }
-  emit('update:selectedCategories', Array.from(activeCategories.value));
+  bossStore.setSelectedCategories(Array.from(activeCategories.value));
 };
 
 const selectAllRegions = () => {
-  activeRegions.value = new Set(props.regions);
-  emit('update:selectedRegions', Array.from(activeRegions.value));
+  activeRegions.value = new Set(bossStore.allRegions);
+  bossStore.setSelectedRegions(Array.from(activeRegions.value));
 };
 
 const deselectAllRegions = () => {
   activeRegions.value.clear();
-  emit('update:selectedRegions', []);
+  bossStore.setSelectedRegions([]);
 };
 
 const selectAllCategories = () => {
-  activeCategories.value = new Set(props.categories);
-  emit('update:selectedCategories', Array.from(activeCategories.value));
+  activeCategories.value = new Set(bossStore.allCategories);
+  bossStore.setSelectedCategories(Array.from(activeCategories.value));
 };
 
 const deselectAllCategories = () => {
   activeCategories.value.clear();
-  emit('update:selectedCategories', []);
+  bossStore.setSelectedCategories([]);
 };
 </script>
 
 <template>
-  <div class="mb-10">
+  <div class="xl:sticky xl:top-0 xl:h-full xl:max-w-80">
     <div class="mb-5">
       <div class="flex gap-3 items-center mb-3">
         <h2 class="text-lg font-semibold text-stone-200">Regions</h2>
@@ -75,7 +69,7 @@ const deselectAllCategories = () => {
       </div>
 
       <div class="flex flex-wrap gap-2 mt-2">
-        <div v-for="region in props.regions" :key="region" @click="toggleRegion(region)"
+        <div v-for="region in bossStore.allRegions" :key="region" @click="toggleRegion(region)"
           class="flex items-center gap-2 border py-1 px-2 rounded-md cursor-pointer"
           :class="activeRegions.has(region) ? 'border-stone-300 text-stone-300' : 'border-stone-500 text-stone-500'">
           <component :is="activeRegions.has(region) ? SquareX : Square" :size="18" />
@@ -88,7 +82,7 @@ const deselectAllCategories = () => {
       <div class="flex gap-3 items-center mb-3">
         <h2 class="text-lg font-semibold text-stone-200">Categories</h2>
 
-        <div class="flex gap-1 items-end text-stone-400 text-xs mt-1">
+        <div class="flex items-end gap-1 text-stone-400 text-xs mt-1">
           <div @click="selectAllCategories" class="cursor-pointer hover:text-stone-200">Select All</div>
           <div>/</div>
           <div @click="deselectAllCategories" class="cursor-pointer hover:text-stone-200">Clear All</div>
@@ -96,7 +90,7 @@ const deselectAllCategories = () => {
       </div>
 
       <div class="flex flex-wrap gap-2 mt-2">
-        <div v-for="category in props.categories" :key="category" @click="toggleCategory(category)"
+        <div v-for="category in bossStore.allCategories" :key="category" @click="toggleCategory(category)"
           class="flex items-center gap-2 border py-1 px-2 rounded-md cursor-pointer"
           :class="activeCategories.has(category) ? 'border-stone-300 text-stone-300' : 'border-stone-500 text-stone-500'">
           <component :is="activeCategories.has(category) ? SquareX : Square" :size="18" />
