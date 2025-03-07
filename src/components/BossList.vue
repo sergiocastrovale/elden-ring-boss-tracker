@@ -99,40 +99,56 @@ const filteredBossesByRegion = computed(() => {
       v-model:selectedCategories="selectedCategories" />
 
     <div ref="listContainer" class="flex flex-grow flex-col gap-3 overflow-y-auto">
-      <div v-for="(bosses, region) in filteredBossesByRegion" :key="region"
-        class="bg-stone-800 text-stone-100 py-2 px-10 flex flex-grow flex-col mb-5 rounded-2xl">
-        <h2 class="text-xl font-semibold my-5">{{ region }}</h2>
-        <Table>
-          <TableHeader class="uppercase">
-            <TableRow class="hover:bg-stone-800 border-b-stone-700">
-              <TableHead class="text-stone-500 px-0 text-center">Done</TableHead>
-              <TableHead class="text-stone-500 text-center">Map</TableHead>
-              <TableHead class="text-stone-500">Name</TableHead>
-              <TableHead class="text-stone-500">Category</TableHead>
-              <TableHead class="text-stone-500">Location</TableHead>
-              <TableHead class="text-stone-500">Loot</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow v-for="boss in bosses" :key="getBossKey(boss)"
-              class="border-b border-b-stone-700 transition-colors hover:bg-stone-700/50">
-              <TableCell class="flex items-center justify-center py-7 px-0" @click="toggleFound(boss)">
-                <component :is="isBossFound(boss) ? SquareX : Square" :size="24" class="cursor-pointer" />
-              </TableCell>
-              <TableCell>
-                <a v-if="boss.boss_location" :href="boss.boss_location" target="_blank"
-                  class="text-stone-100 flex items-center justify-center">
-                  <MapPin :size="24" />
-                </a>
-              </TableCell>
-              <TableCell>{{ boss.name }}</TableCell>
-              <TableCell>{{ boss.category }}</TableCell>
-              <TableCell>{{ boss.location }}</TableCell>
-              <TableCell class="whitespace-pre-wrap">{{ boss.info }}</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+      <div v-for="(bosses, region) in filteredBossesByRegion" :key="region">
+        <h2 class="text-stone-100 text-xl font-semibold my-5">{{ region }}</h2>
+        <div class="bg-stone-800 text-stone-100 py-5 px-7 flex flex-grow flex-col mb-5 rounded-2xl">
+          <Table>
+            <TableHeader class="uppercase">
+              <TableRow class="hover:bg-stone-800 border-b-stone-700">
+                <TableHead class="text-stone-500 p-3">Done</TableHead>
+                <TableHead class="text-stone-500 p-3">Map</TableHead>
+                <TableHead class="text-stone-500 p-3">Name</TableHead>
+                <TableHead class="text-stone-500 p-3">Category</TableHead>
+                <TableHead class="text-stone-500 p-3">Details</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow v-for="boss in bosses" :key="getBossKey(boss)"
+                class="border-b border-b-stone-700 transition-colors hover:bg-stone-700/50">
+                <TableCell @click="toggleFound(boss)" class="p-3">
+                  <component :is="isBossFound(boss) ? SquareX : Square" :size="30" class="cursor-pointer" />
+                </TableCell>
+                <TableCell>
+                  <a v-if="boss.boss_location" :href="boss.boss_location" target="_blank" class="text-stone-100">
+                    <MapPin :size="24" />
+                  </a>
+                </TableCell>
+                <TableCell class="p-3">{{ boss.name }}</TableCell>
+                <TableCell class="p-3">{{ boss.category }}</TableCell>
+                <TableCell class="py-3 info-panel" v-html="boss.info"></TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<style lang="css" scoped>
+:deep(.info-panel h3) {
+  @apply font-semibold;
+  @apply mb-1;
+}
+
+:deep(.info-panel h3.loot) {
+  @apply mt-3;
+}
+
+:deep(.info-panel a) {
+  @apply inline-block;
+  @apply pt-1;
+  @apply text-orange-300;
+  @apply border-b border-orange-300 border-dotted;
+}
+</style>
