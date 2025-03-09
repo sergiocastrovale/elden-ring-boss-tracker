@@ -19,10 +19,11 @@ export const useBossStore = defineStore('bossStore', {
       } else {
         this.foundBosses.add(key)
       }
+
       this.saveFoundBosses()
     },
     saveFoundBosses() {
-      localStorage.setItem('foundBosses', JSON.stringify([...this.foundBosses]))
+      localStorage.setItem('bosses', JSON.stringify([...this.foundBosses]))
     },
     setSelectedRegions(regions) {
       this.selectedRegions = regions

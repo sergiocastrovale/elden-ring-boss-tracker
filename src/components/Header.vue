@@ -10,7 +10,7 @@ import { Info } from 'lucide-vue-next';
 </script>
 
 <template>
-  <nav class="text-stone-400 mt-4 flex justify-between text-sm border-b border-stone-700 pb-4 mb-5">
+  <nav class="text-stone-400 mt-4 flex justify-between text-sm border-b border-stone-700 pb-4 mb-3">
     <h1 class="font-semibold text-lg">Elden Ring Boss Tracker</h1>
     <div class="flex gap-3 items-center">
       <Dialog>
@@ -25,8 +25,9 @@ import { Info } from 'lucide-vue-next';
               impossible. Hopefully this tool will help you navigate the game a bit better without spoiling away any
               progression.</p>
             <p>I was looking for an excuse to do a "dev speedrun" of sorts by building a very small app as quickly as
-              possible. I built this in about four hours (parser included). As I was playing Elden Ring at the time,
-              this seemed like a quick - but useful - project to work on.</p>
+              possible. As I was playing Elden Ring at the time, this seemed like a quick - but useful - project to work
+              on.</p>
+            <p>Unfortunately, as it is customary, I got excited with the project and kept on adding features 🤷</p>
             <h3 class="font-semibold text-md mb-2 mt-5">Aren't there better tools?</h3>
             <p>It's common knowledge that <a href="https://mapgenie.io/elden-ring" target="_blank"
                 class="underline">MapGenie's tools</a> are incredibly useful are incredibly useful - in Elden Ring and
