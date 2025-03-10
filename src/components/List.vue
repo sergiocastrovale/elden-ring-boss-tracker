@@ -1,7 +1,7 @@
 <script setup>
-import { ref, onMounted, watch, nextTick } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Table, TableHead, TableHeader, TableRow, TableCell, TableBody } from '@/components/ui/table';
-import { Square, SquareX, MapPin } from 'lucide-vue-next';
+import { Square, SquareX, } from 'lucide-vue-next';
 import bossesData from '@/data/bosses_data.json';
 import { useBossStore } from '@/stores/bossStore';
 
@@ -20,25 +20,6 @@ onMounted(() => {
 });
 
 const getBossKey = (boss) => `${boss.name}-${boss.region_id}-${boss.location_id}`;
-
-const previousScroll = ref(0);
-const beforeFilterChange = () => {
-  if (listContainer.value) {
-    previousScroll.value = listContainer.value.scrollTop;
-  }
-};
-const afterFilterChange = () => {
-  nextTick(() => {
-    if (listContainer.value) {
-      listContainer.value.scrollTop = previousScroll.value;
-    }
-  });
-};
-
-watch([() => bossStore.selectedRegions, () => bossStore.selectedCategories], () => {
-  beforeFilterChange();
-  afterFilterChange();
-});
 </script>
 
 <template>

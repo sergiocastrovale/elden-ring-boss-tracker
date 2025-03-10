@@ -35,9 +35,9 @@ const importBosses = (event) => {
 </script>
 
 <template>
-  <div class="text-stone-300">
-    <label for="file-input" title="Import saved data from another device">
-      <Upload :size="18" />
+  <div class="text-stone-300" title="Import saved data">
+    <label for="file-input">
+      <Upload :size="18" class="cursor-pointer" />
     </label>
     <input id="file-input" type="file" @change="importBosses" accept=".json" class="hidden" />
   </div>

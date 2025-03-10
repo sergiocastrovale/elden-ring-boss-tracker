@@ -28,7 +28,7 @@ const exportBosses = () => {
   <div class="text-stone-300">
     <Toaster />
 
-    <button @click="exportBosses">
+    <button @click="exportBosses" class="cursor-pointer" title="Export data">
       <Download :size="18" />
     </button>
   </div>

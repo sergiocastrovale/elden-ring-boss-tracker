@@ -62,9 +62,9 @@ const deselectAllCategories = () => {
         <h2 class="text-lg font-semibold text-stone-200">Regions</h2>
 
         <div class="flex gap-1 items-end text-stone-400 text-xs mt-1">
-          <div @click="selectAllRegions" class="cursor-pointer hover:text-stone-200">Select All</div>
+          <div @click="selectAllRegions" class="cursor-pointer hover:text-stone-200">All</div>
           <div>/</div>
-          <div @click="deselectAllRegions" class="cursor-pointer hover:text-stone-200">Clear All</div>
+          <div @click="deselectAllRegions" class="cursor-pointer hover:text-stone-200">None</div>
         </div>
       </div>
 
@@ -83,9 +83,9 @@ const deselectAllCategories = () => {
         <h2 class="text-lg font-semibold text-stone-200">Categories</h2>
 
         <div class="flex items-end gap-1 text-stone-400 text-xs mt-1">
-          <div @click="selectAllCategories" class="cursor-pointer hover:text-stone-200">Select All</div>
+          <div @click="selectAllCategories" class="cursor-pointer hover:text-stone-200">All</div>
           <div>/</div>
-          <div @click="deselectAllCategories" class="cursor-pointer hover:text-stone-200">Clear All</div>
+          <div @click="deselectAllCategories" class="cursor-pointer hover:text-stone-200">None</div>
         </div>
       </div>
 
