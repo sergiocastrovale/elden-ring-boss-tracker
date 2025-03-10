@@ -5,7 +5,7 @@ DLC). In total, this game features 272 + 62 bosses, and keeping track of all eve
 impossible. Hopefully this tool will help you navigate the game a bit better without spoiling away any
 progression.
 
-This tool leverages MapGenie's resources but removes tracking limits.
+This tool leverages MapGenie's resources but removes tracking limits. It also includes some other handy features, like a search filter and, since it relies on your browser's local storage, an import and export mechanism so you can send it to other devices if needed.
 
 You can use it at <https://elden-ring-boss-tracker.vercel.app/>.
 

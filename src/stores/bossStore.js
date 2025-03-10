@@ -8,6 +8,7 @@ export const useBossStore = defineStore('bossStore', {
     selectedRegions: [],
     selectedCategories: [],
     searchQuery: '',
+    hideDone: false,
     originalBosses: [],
   }),
   actions: {
@@ -42,6 +43,18 @@ export const useBossStore = defineStore('bossStore', {
       this.searchQuery = query
       this.filterBosses()
     },
+    setHideDone(value) {
+      this.hideDone = value
+      localStorage.setItem('hideDone', JSON.stringify(value))
+      this.filterBosses()
+    },
+    loadHideDone() {
+      const hideDone = JSON.parse(localStorage.getItem('hideDone'))
+      if (hideDone !== null) {
+        this.hideDone = hideDone
+      }
+      this.filterBosses()
+    },
     filterBosses() {
       this.filteredBosses = this.originalBosses.filter((boss) => {
         const matchesName = this.searchQuery
@@ -51,7 +64,10 @@ export const useBossStore = defineStore('bossStore', {
           this.selectedRegions.length === 0 || this.selectedRegions.includes(boss.region)
         const matchesCategory =
           this.selectedCategories.length === 0 || this.selectedCategories.includes(boss.category)
-        return matchesName && matchesRegion && matchesCategory
+        const isNotDone =
+          !this.hideDone ||
+          !this.foundBosses.has(`${boss.name}-${boss.region_id}-${boss.location_id}`)
+        return matchesName && matchesRegion && matchesCategory && isNotDone
       })
     },
   },
