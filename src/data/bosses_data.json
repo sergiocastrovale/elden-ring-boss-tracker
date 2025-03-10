@@ -250,7 +250,7 @@
       "location": "https://mapgenie.io/elden-ring/maps/the-lands-between?locationIds=165597",
       "location_id": "165597",
       "region_id": "1327",
-      "info": "<p><h3>Location</h3>Only found at night<h3 class=\"loot\">Loot</h3><a href=\"https://mapgenie.io/elden-ring/maps/the-lands-between?locationIds=166216\">Red Feathered Branch Sword</a></p>"
+      "info": "<p><h3>Location</h3>North of Scenic Isle, and Northeast of the Birds Eye Telescope. Only found at night<h3 class=\"loot\">Loot</h3><a href=\"https://mapgenie.io/elden-ring/maps/the-lands-between?locationIds=166216\">Red Feathered Branch Sword</a></p>"
     },
     {
       "name": "Red Wolf of Radagon",
@@ -1195,7 +1195,7 @@
       "location": "https://mapgenie.io/elden-ring/maps/the-lands-between?locationIds=168515",
       "location_id": "168515",
       "region_id": "1349",
-      "info": "<p><h3>Location</h3>Found dormant in the middle of the Lake of Rot.</p><p><h3 class=\"loot\">Loot</h3></p><ul><li>55200 runes</li><li>Dragonscale Blade</li></ul><p><h3>Tip:</h3>Make sure to raise all the platforms so you can avoid touching the lake during the fight and the Scarlet Rot accumulation.</p>"
+      "info": "<p><h3>Location</h3>Found dormant in the middle of the Lake of Rot.</p><p><h3 class=\"loot\">Loot</h3></p><ul><li>55200 runes</li><li><a href=\"https://eldenring.wiki.fextralife.com/Dragonscale+Blade\">Dragonscale Blade</a></li></ul><p><h3>Tip:</h3>Make sure to raise all the platforms so you can avoid touching the lake during the fight and the Scarlet Rot accumulation.</p>"
     },
     {
       "name": "Erdtree Burial Watchdog",

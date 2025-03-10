@@ -17,16 +17,27 @@ onMounted(() => {
   bossStore.setSelectedRegions(storedRegions ?? bossStore.allRegions);
   bossStore.setSelectedCategories(storedCategories ?? bossStore.allCategories);
   bossStore.foundBosses = new Set(storedFound);
+  bossStore.loadHideDone();
 });
 
 const getBossKey = (boss) => `${boss.name}-${boss.region_id}-${boss.location_id}`;
+
+const getDoneCount = (bosses) => {
+  return bosses.filter(boss => bossStore.foundBosses.has(getBossKey(boss))).length;
+};
 </script>
 
 <template>
-  <div ref="listContainer" class="flex flex-grow flex-col gap-3 overflow-y-auto">
+  <div ref="listContainer" class="flex flex-grow flex-col overflow-y-auto">
     <div v-for="(bosses, region) in bossStore.filteredBossesByRegion" :key="region">
-      <h2 class="text-stone-100 text-xl font-semibold my-5">{{ region }}</h2>
-      <div class="bg-stone-800 text-stone-100 py-1 px-3 xl:py-5 xl:px-7 flex flex-grow flex-col mb-5 rounded-2xl">
+      <h2 class="text-stone-100 text-xl font-semibold my-3">
+        {{ region }}
+
+        <span v-if="!bossStore.hideDone" class="font-normal text-sm">
+          ({{ getDoneCount(bosses) }}/{{ bosses.length }})
+        </span>
+      </h2>
+      <div class="bg-stone-800 text-stone-100 py-1 px-3 xl:py-5 xl:px-7 flex flex-grow flex-col rounded-2xl mb-5">
         <Table>
           <TableHeader class="uppercase">
             <TableRow class="hover:bg-stone-800 border-b-stone-700">

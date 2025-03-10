@@ -56,7 +56,7 @@ const deselectAllCategories = () => {
 </script>
 
 <template>
-  <div class="xl:sticky xl:top-0 xl:h-full xl:max-w-80">
+  <div class="xl:sticky xl:top-0 xl:h-full xl:max-w-80 py-3">
     <div class="mb-5">
       <div class="flex gap-3 items-center mb-3">
         <h2 class="text-lg font-semibold text-stone-200">Regions</h2>
@@ -68,7 +68,7 @@ const deselectAllCategories = () => {
         </div>
       </div>
 
-      <div class="flex flex-wrap gap-2 mt-2">
+      <div class="flex flex-wrap gap-2 mt-2 text-sm">
         <div v-for="region in bossStore.allRegions" :key="region" @click="toggleRegion(region)"
           class="flex items-center gap-2 border py-1 px-2 rounded-md cursor-pointer"
           :class="activeRegions.has(region) ? 'border-stone-300 text-stone-300' : 'border-stone-500 text-stone-500'">
@@ -89,7 +89,7 @@ const deselectAllCategories = () => {
         </div>
       </div>
 
-      <div class="flex flex-wrap gap-2 mt-2">
+      <div class="flex flex-wrap gap-2 mt-2 text-sm">
         <div v-for="category in bossStore.allCategories" :key="category" @click="toggleCategory(category)"
           class="flex items-center gap-2 border py-1 px-2 rounded-md cursor-pointer"
           :class="activeCategories.has(category) ? 'border-stone-300 text-stone-300' : 'border-stone-500 text-stone-500'">
