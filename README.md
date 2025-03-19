@@ -5,7 +5,7 @@ DLC). In total, this game features 272 + 62 bosses, and keeping track of all eve
 impossible. Hopefully this tool will help you navigate the game a bit better without spoiling away any
 progression.
 
-This tool leverages MapGenie's resources but removes tracking limits. It also includes some other handy features, like searching and, since it relies on your browser's local storage, an import and export mechanism so you can send it to other devices if needed.
+This tool leverages the two best sources of information on the internet: MapGenie's [boss tracker](https://mapgenie.io/elden-ring/checklist) and [map](https://mapgenie.io/elden-ring/maps/the-lands-between) and [the Wiki](https://eldenring.wiki.fextralife.com/Elden+Ring+Wiki) . It also includes some other handy features, like searching and, since it relies on your browser's local storage, an import and export mechanism so you can send it to other devices if needed.
 
 You can use it at <https://elden-ring-boss-tracker.vercel.app/>.
 
@@ -21,14 +21,7 @@ Mobile friendly!
 
 I was looking for an excuse to do a "dev speedrun" of sorts by building a very small app as quickly as possible. As I was playing Elden Ring at the time, this seemed like a quick - but useful - project to work on.
 
-The initial version took me about six hours to develop (MapGenie's parser included). Unfortunately, as it is customary, I got excited with the project and kept on adding features 🤷
-
-## Aren't there better tools?
-
-Yes! [MapGenie's tools](https://mapgenie.io/elden-ring) are incredibly useful and a must-have in in Elden Ring and so many other games.
-However, the tool I use the most - the Boss Checklist - is capped at a maximum of 40 free locations; after that you'd have to pay.
-
-This tracker uses the same information as that tracker, but without any limitations. It still links to MG's maps and wiki, but you can mark the bosses you've defeated at will.
+The initial version took me about six hours to develop. Unfortunately, as it is customary, I got excited with the project and kept on adding features 🤷
 
 ## Caveats
 
